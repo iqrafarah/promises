@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise 1</title>
+  </head>
+  <body>
+    <script>
+      const url = "https://www.dennisvanriet.nl/RESTAPI_PROMISES/";
+
+      const fetchContent = async (accepType) => {
+        try {
+          const response = await fetch(url, {
+            headers: { Accept: accepType },
+          });
+
+          if (!response.ok) {
+            console.log(`ERROR: $response.status`);
+          }
+
+          const content = await response.text();
+          console.log(`content-Type: ${accepType}\n`);
+          console.log(content);
+        } catch (error) {
+          console.error(`Fetch error: ${error.message}`);
+        }
+      };
+
+      fetchContent("text/plain");
+      fetchContent("text/html");
+      fetchContent("application/json");
+    </script>
+  </body>
+</html>

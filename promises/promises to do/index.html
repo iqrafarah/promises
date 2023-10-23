@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      async function getData(url) {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Concent-Type": "application/json",
+          },
+        });
+        return await response.json();
+      }
+
+      async function listData(data) {
+        const ol = document.createElement("ol");
+
+        for (let obj of data) {
+          const li = document.createElement("li");
+          li.innerText = obj.title;
+          ol.appendChild(li);
+        }
+        return ol;
+      }
+
+      async function addToDOM(element) {
+        document.querySelector(".container").appendChild(element);
+      }
+
+      getData("https://jsonplaceholder.typicode.com/todos")
+        .then((d) => listData(d))
+        .then((f) => addToDOM(f));
+    </script>
+  </body>
+</html>
